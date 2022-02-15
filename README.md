@@ -20,12 +20,13 @@ Javascript
 * Intégrer fichiers bootstrap css et js
 * Créer dossiers /uploads (images, documents) et /docs dans /public
 * Configurer les chemins d'accès à /uploads/images et /uploads/documents dans services.yaml
-
+* Créer l'entité User
+* Créer un Controller de pages statiques (home, contact, about)
 
 ## TO DO
 
-* Créer l'entité User
-* Créer un Controller de pages statiques
+
+
 
 
 

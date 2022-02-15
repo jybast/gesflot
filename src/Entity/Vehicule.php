@@ -39,7 +39,7 @@ class Vehicule
     #[ORM\Column(type: 'string', length: 100)]
     private $d2_version;
 
-    #[ORM\Column(type: 'string', length: 50)]
+    #[ORM\Column(type: 'string', length: 50, unique: true)]
     private $d21_cnit;
 
     #[ORM\Column(type: 'string', length: 50)]
@@ -135,41 +135,7 @@ class Vehicule
     #[ORM\Column(type: 'decimal', precision: 6, scale: 2, nullable: true)]
     private $y6_total;
 
-    #[ORM\Column(type: 'decimal', precision: 5, scale: 2, nullable: true)]
-    private $longueur;
 
-    #[ORM\Column(type: 'decimal', precision: 5, scale: 2, nullable: true)]
-    private $largeur;
-
-    #[ORM\Column(type: 'decimal', precision: 5, scale: 2, nullable: true)]
-    private $hauteur;
-
-    #[ORM\Column(type: 'integer', nullable: true)]
-    private $coffre;
-
-    #[ORM\Column(type: 'decimal', precision: 5, scale: 2, nullable: true)]
-    private $empattement;
-
-    #[ORM\Column(type: 'decimal', precision: 5, scale: 2, nullable: true)]
-    private $porteafaux;
-
-    #[ORM\Column(type: 'integer', nullable: true)]
-    private $reservoir;
-
-    #[ORM\Column(type: 'decimal', precision: 5, scale: 2, nullable: true)]
-    private $conso_urbaine;
-
-    #[ORM\Column(type: 'decimal', precision: 5, scale: 2, nullable: true)]
-    private $conso_mixte;
-
-    #[ORM\Column(type: 'string', length: 10, nullable: true)]
-    private $transmission;
-
-    #[ORM\Column(type: 'string', length: 20, nullable: true)]
-    private $boite;
-
-    #[ORM\Column(type: 'string', length: 20, nullable: true)]
-    private $pneumatiques;
 
     #[ORM\Column(type: 'date', nullable: true)]
     private $acheterAt;
@@ -179,6 +145,30 @@ class Vehicule
 
     #[ORM\Column(type: 'integer')]
     private $odometer;
+
+    #[ORM\ManyToOne(targetEntity: FicheTechnique::class, inversedBy: 'vehicules')]
+    #[ORM\JoinColumn(nullable: false)]
+    private $fiche_technique;
+
+    #[ORM\OneToMany(mappedBy: 'vehicules', targetEntity: Image::class)]
+    private $images;
+
+    #[ORM\OneToMany(mappedBy: 'vehicule', targetEntity: Conduire::class)]
+    private $trajets;
+
+    #[ORM\OneToMany(mappedBy: 'vehicule', targetEntity: Assurance::class)]
+    private $assurances;
+
+    #[ORM\OneToMany(mappedBy: 'vehicule', targetEntity: Entretenir::class)]
+    private $entretiens;
+
+    public function __construct()
+    {
+        $this->images = new ArrayCollection();
+        $this->trajets = new ArrayCollection();
+        $this->assurances = new ArrayCollection();
+        $this->entretiens = new ArrayCollection();
+    }
 
 
 
@@ -672,149 +662,7 @@ class Vehicule
         return $this;
     }
 
-    public function getLongueur(): ?string
-    {
-        return $this->longueur;
-    }
 
-    public function setLongueur(?string $longueur): self
-    {
-        $this->longueur = $longueur;
-
-        return $this;
-    }
-
-    public function getLargeur(): ?string
-    {
-        return $this->largeur;
-    }
-
-    public function setLargeur(?string $largeur): self
-    {
-        $this->largeur = $largeur;
-
-        return $this;
-    }
-
-    public function getHauteur(): ?string
-    {
-        return $this->hauteur;
-    }
-
-    public function setHauteur(string $hauteur): self
-    {
-        $this->hauteur = $hauteur;
-
-        return $this;
-    }
-
-    public function getCoffre(): ?int
-    {
-        return $this->coffre;
-    }
-
-    public function setCoffre(?int $coffre): self
-    {
-        $this->coffre = $coffre;
-
-        return $this;
-    }
-
-    public function getEmpattement(): ?string
-    {
-        return $this->empattement;
-    }
-
-    public function setEmpattement(?string $empattement): self
-    {
-        $this->empattement = $empattement;
-
-        return $this;
-    }
-
-    public function getPorteafaux(): ?string
-    {
-        return $this->porteafaux;
-    }
-
-    public function setPorteafaux(string $porteafaux): self
-    {
-        $this->porteafaux = $porteafaux;
-
-        return $this;
-    }
-
-    public function getReservoir(): ?int
-    {
-        return $this->reservoir;
-    }
-
-    public function setReservoir(?int $reservoir): self
-    {
-        $this->reservoir = $reservoir;
-
-        return $this;
-    }
-
-    public function getConsoUrbaine(): ?string
-    {
-        return $this->conso_urbaine;
-    }
-
-    public function setConsoUrbaine(?string $conso_urbaine): self
-    {
-        $this->conso_urbaine = $conso_urbaine;
-
-        return $this;
-    }
-
-    public function getConsoMixte(): ?string
-    {
-        return $this->conso_mixte;
-    }
-
-    public function setConsoMixte(?string $conso_mixte): self
-    {
-        $this->conso_mixte = $conso_mixte;
-
-        return $this;
-    }
-
-    public function getTransmission(): ?string
-    {
-        return $this->transmission;
-    }
-
-    public function setTransmission(?string $transmission): self
-    {
-        $this->transmission = $transmission;
-
-        return $this;
-    }
-
-    public function getBoite(): ?string
-    {
-        return $this->boite;
-    }
-
-    public function setBoite(?string $boite): self
-    {
-        $this->boite = $boite;
-
-        return $this;
-    }
-
-    public function getPneumatiques(): ?string
-    {
-        return $this->pneumatiques;
-    }
-
-    public function setPneumatiques(?string $pneumatiques): self
-    {
-        $this->pneumatiques = $pneumatiques;
-
-        return $this;
-    }
 
     public function getAcheterAt(): ?\DateTimeInterface
     {
@@ -848,6 +696,138 @@ class Vehicule
     public function setOdometer(int $odometer): self
     {
         $this->odometer = $odometer;
+
+        return $this;
+    }
+
+    public function getFicheTechnique(): ?FicheTechnique
+    {
+        return $this->fiche_technique;
+    }
+
+    public function setFicheTechnique(?FicheTechnique $fiche_technique): self
+    {
+        $this->fiche_technique = $fiche_technique;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Images[]
+     */
+    public function getImages(): Collection
+    {
+        return $this->images;
+    }
+
+    public function addImage(Images $image): self
+    {
+        if (!$this->images->contains($image)) {
+            $this->images[] = $image;
+            $image->setVehicules($this);
+        }
+
+        return $this;
+    }
+
+    public function removeImage(Images $image): self
+    {
+        if ($this->images->removeElement($image)) {
+            // set the owning side to null (unless already changed)
+            if ($image->getVehicules() === $this) {
+                $image->setVehicules(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Conduire[]
+     */
+    public function getTrajets(): Collection
+    {
+        return $this->trajets;
+    }
+
+    public function addTrajet(Conduire $trajet): self
+    {
+        if (!$this->trajets->contains($trajet)) {
+            $this->trajets[] = $trajet;
+            $trajet->setVehicule($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTrajet(Conduire $trajet): self
+    {
+        if ($this->trajets->removeElement($trajet)) {
+            // set the owning side to null (unless already changed)
+            if ($trajet->getVehicule() === $this) {
+                $trajet->setVehicule(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Assurance[]
+     */
+    public function getAssurances(): Collection
+    {
+        return $this->assurances;
+    }
+
+    public function addAssurance(Assurance $assurance): self
+    {
+        if (!$this->assurances->contains($assurance)) {
+            $this->assurances[] = $assurance;
+            $assurance->setVehicule($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAssurance(Assurance $assurance): self
+    {
+        if ($this->assurances->removeElement($assurance)) {
+            // set the owning side to null (unless already changed)
+            if ($assurance->getVehicule() === $this) {
+                $assurance->setVehicule(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Entretenir[]
+     */
+    public function getEntretiens(): Collection
+    {
+        return $this->entretiens;
+    }
+
+    public function addEntretien(Entretenir $entretien): self
+    {
+        if (!$this->entretiens->contains($entretien)) {
+            $this->entretiens[] = $entretien;
+            $entretien->setVehicule($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEntretien(Entretenir $entretien): self
+    {
+        if ($this->entretiens->removeElement($entretien)) {
+            // set the owning side to null (unless already changed)
+            if ($entretien->getVehicule() === $this) {
+                $entretien->setVehicule(null);
+            }
+        }
 
         return $this;
     }
