@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Log in!
+{% endblock %}
+
+{% block body %}
+
+	<div class="content">
+		<div class="wrapper">
+			<div class="row justify-content-center">
+				<div class="col-md-10">
+					<div class="row justify-content-center">
+						<div class="col-md-6">
+							<div class="form-wrapper">
+								<form method="post">
+									{% if error %}
+										<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+									{% endif %}
+
+									<h1 class="h3 mb-3 font-weight-normal">{% trans %}Please sign in{% endtrans %}</h1>
+									<label for="inputEmail">Email</label>
+									<input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
+									<label for="inputPassword">{% trans %}Password{% endtrans %}</label>
+									<input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+									<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+									<button class="btn btn-lg btn-primary" type="submit">
+										{% trans %}Sign in{% endtrans %}
+									</button>
+									<div class="text-center m-t-5 m-b-20">
+										<label>
+											<a href="{{path('app_forgot_password_request')}}">{% trans %}
+												Password forgotten ?
+												{% endtrans %}</a>
+										</label>
+									</div>
+								</form>
+							</div>
+						</div>
+						<div class="col-md-5 offset-md-1 m-t-10">
+							{% if app.user %}
+								<div class="mb-3">
+									{% trans %}You are logged in as
+									{% endtrans %}{{ app.user.userIdentifier }},
+									<a href="{{ path('app_logout') }}">{% trans %}Logout{% endtrans %}</a>
+								</div>
+							{% endif %}
+							<h3 class="heading mb-4">{% trans %}
+								It's time to check in !{% endtrans %}</h3>
+							<p>{% trans %}Please use the sign in form.{% endtrans %}</p>
+							<div class="register-link">
+								<p>
+									{% trans %}Not registered yet ?{% endtrans %}
+									<a href="{{path('app_register')}}">{% trans %}
+										Sign in Here{% endtrans %}</a>
+								</p>
+							</div>
+							<p><img src="{{ asset('assets/img/login.jpg')}}" alt="SignIn" class="img-fluid"></p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

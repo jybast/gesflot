@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	{% trans %}Register{% endtrans %}
+{% endblock %}
+
+{% block body %}
+	<div class="content">
+
+		<div class="wrapper">
+			<div class="row justify-content-center">
+				<div class="col-md-10">
+					<div class="row justify-content-center">
+						<div class="col-md-6">
+							<h3 class="heading mb-4">{% trans %}
+								It's time to check in !{% endtrans %}</h3>
+							<p>{% trans %}Please use the sign in form.{% endtrans %}</p>
+
+							<p><img src="{{ asset('assets/img/register.jpg')}}" alt="SignIn" class="img-fluid"></p>
+						</div>
+						<div class="col-md-6">
+							{% for flashError in app.flashes('verify_email_error') %}
+								<div class="alert alert-danger" role="alert">{{ flashError }}</div>
+							{% endfor %}
+
+							<h1>{% trans %}Register{% endtrans %}</h1>
+
+							{{ form_start(registrationForm) }}
+							{{ form_row(registrationForm.email) }}
+							{{ form_row(registrationForm.plainPassword, {
+            label: 'Password'
+        }) }}
+							{{ form_row(registrationForm.agreeTerms) }}
+
+							<button type="submit" class="btn">{% trans %}Register{% endtrans %}</button>
+							{{ form_end(registrationForm) }}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}

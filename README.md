@@ -22,33 +22,19 @@ Javascript
 * Configurer les chemins d'accès à /uploads/images et /uploads/documents dans services.yaml
 * Créer l'entité User
 * Créer un Controller de pages statiques (home, contact, about)
+* Créer la base de données
+* Préparer mise en place traduction multilingue
 
 ## TO DO
-
-
-
-
-
-
-
-
+* Préparer backend Administrateur : composer require easycorp/easyadmin-bundle
+* intégrer fontAwesome : <script src="https://kit.fontawesome.com/88d4e45bc1.js" crossorigin="anonymous"></script>
 * Préparer le système d'authentification et d'enregistrement
-* Préparer mise en place traduction multilingue
-* L'entité Vehicule comporte:
-  - Les renseignements du certificat d'immatriculation
-  - Les renseignements techniques spécifiques
-  - les renseignements financiers
-  - lien sur les images du véhicule
-- lien sur les documents du véhicule
+
+* -> symfony console translation:extract --force --prefix="gf_" fr
 * Un controller (Add, delete, edit, show) et upload de fichiers.
-* Entité Assurance & CRUD
-* Préparer backend Administrateur
-* Répertoire /admin dans /src et /templates 
-* CRUD user
+
 * page contact
 * - formulaire contact
-
-
   - envoi de mail
   - carte openStreetMap
 intégrer CKEditor 5

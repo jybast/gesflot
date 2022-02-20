@@ -42,9 +42,18 @@ class Fournisseur
     #[ORM\OneToMany(mappedBy: 'fournisseur', targetEntity: Assurance::class)]
     private $assurances;
 
+    #[ORM\OneToMany(mappedBy: 'fournisseur', targetEntity: Entretenir::class)]
+    private $entretiens;
+
     public function __construct()
     {
         $this->assurances = new ArrayCollection();
+        $this->entretiens = new ArrayCollection();
+    }
+
+    public function __toString()
+    {
+        return $this->titre;
     }
 
     public function getId(): ?int
@@ -172,6 +181,36 @@ class Fournisseur
             // set the owning side to null (unless already changed)
             if ($assurance->getFournisseur() === $this) {
                 $assurance->setFournisseur(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Entretenir[]
+     */
+    public function getEntretiens(): Collection
+    {
+        return $this->entretiens;
+    }
+
+    public function addEntretien(Entretenir $entretien): self
+    {
+        if (!$this->entretiens->contains($entretien)) {
+            $this->entretiens[] = $entretien;
+            $entretien->setFournisseur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEntretien(Entretenir $entretien): self
+    {
+        if ($this->entretiens->removeElement($entretien)) {
+            // set the owning side to null (unless already changed)
+            if ($entretien->getFournisseur() === $this) {
+                $entretien->setFournisseur(null);
             }
         }
 

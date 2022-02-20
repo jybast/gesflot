@@ -1,0 +1,37 @@
+#main {
+    font-size: 1rem;
+}
+
+.bg-powderblue{
+    background-color: powderblue;
+}
+
+.main-content{
+    padding: 2rem 0;
+    background-color: aquamarine;
+}
+
+.flex-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+
+.flex-container > * {
+    flex: 1 1 180px;
+}
+
+.justify-content-center {
+    -webkit-box-pack: center !important;
+    -ms-flex-pack: center !important;
+    justify-content: center !important;
+  }
+
+  .form-wrapper{
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: 25px;
+    margin-left: 25px;
+  }

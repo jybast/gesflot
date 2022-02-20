@@ -19,6 +19,9 @@ class Entretenir
     #[ORM\ManyToOne(targetEntity: Entretien::class, inversedBy: 'maintenances')]
     private $maintenir;
 
+    #[ORM\ManyToOne(targetEntity: Fournisseur::class, inversedBy: 'entretiens')]
+    private $fournisseur;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -44,6 +47,18 @@ class Entretenir
     public function setMaintenir(?Entretien $maintenir): self
     {
         $this->maintenir = $maintenir;
+
+        return $this;
+    }
+
+    public function getFournisseur(): ?Fournisseur
+    {
+        return $this->fournisseur;
+    }
+
+    public function setFournisseur(?Fournisseur $fournisseur): self
+    {
+        $this->fournisseur = $fournisseur;
 
         return $this;
     }
