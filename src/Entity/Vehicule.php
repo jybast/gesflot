@@ -2,10 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\VehiculeRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Entity\Images;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\VehiculeRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 #[ORM\Entity(repositoryClass: VehiculeRepository::class)]
 class Vehicule
@@ -713,14 +714,14 @@ class Vehicule
     }
 
     /**
-     * @return Collection|Images[]
+     * @return Collection|Image[]
      */
     public function getImages(): Collection
     {
         return $this->images;
     }
 
-    public function addImage(Images $image): self
+    public function addImage(Image $image): self
     {
         if (!$this->images->contains($image)) {
             $this->images[] = $image;
@@ -730,7 +731,7 @@ class Vehicule
         return $this;
     }
 
-    public function removeImage(Images $image): self
+    public function removeImage(Image $image): self
     {
         if ($this->images->removeElement($image)) {
             // set the owning side to null (unless already changed)

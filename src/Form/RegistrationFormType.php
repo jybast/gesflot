@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Validator\Constraints\Regex;
 use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
@@ -32,7 +33,14 @@ class RegistrationFormType extends AbstractType
                 'label' => $this->translator->trans('Email'),
                 'attr' => [
                     'class' => 'form-control'
+                ],
+                'constraints' => [
+                    new Regex([
+                        'pattern' => "#^[a-zA-Z0-9.!$\#%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$#",
+                        'message' => $this->translator->trans('The format of your email is incorrect')
+                    ])
                 ]
+
             ])
             ->add('lastname', TextType::class, [
                 'label' => $this->translator->trans('Lastname'),

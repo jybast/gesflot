@@ -37,14 +37,15 @@ class ConduireRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Conduire
+    * 
+    */
+    public function findLogbooksByVehicle($value): ?array
     {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
+        return $this->createQueryBuilder('conduire')
+            ->leftjoin('conduire.vehicule', 'cv')
+            ->andWhere('conduire.vehicule = :val')
             ->setParameter('val', $value)
             ->getQuery()
-            ->getOneOrNullResult()
-        ;
+            ->getResult();
     }
-    */
 }

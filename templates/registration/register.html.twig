@@ -26,10 +26,28 @@
 							<h1>{% trans %}Register{% endtrans %}</h1>
 
 							{{ form_start(registrationForm) }}
-							{{ form_row(registrationForm.email) }}
-							{{ form_row(registrationForm.plainPassword, {
+							<fieldset>
+								<caption>
+									<p class="h3 text-center">{% trans %}Credentials{% endtrans %}</p>
+								</caption>
+
+								{{ form_row(registrationForm.email) }}
+								{{ form_row(registrationForm.plainPassword, {
             label: 'Password'
         }) }}
+							</fieldset>
+							<fieldset>
+								<caption>
+									<p class="h3 text-center">{% trans %}Identity{% endtrans %}</p>
+								</caption>
+								{{ form_row(registrationForm.firstname) }}
+								{{ form_row(registrationForm.lastname) }}
+								{{ form_row(registrationForm.address) }}
+								{{ form_row(registrationForm.zipcode) }}
+								{{ form_row(registrationForm.city) }}
+								{{ form_row(registrationForm.phone) }}
+							</fieldset>
+
 							{{ form_row(registrationForm.agreeTerms) }}
 
 							<button type="submit" class="btn">{% trans %}Register{% endtrans %}</button>

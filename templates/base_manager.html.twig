@@ -1,0 +1,39 @@
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+	<meta name="description" content=""/>
+	<meta name="author" content=""/>
+	<title>
+		{% block title %}Accueil
+		{% endblock %}Gesflot</title>
+	<!-- Icon -->
+	<link
+	rel="shortcut icon" href="{{ asset('assets/img/favicon.ico') }}" type="image/x-icon">
+
+	<!-- Feuilles de styles -->
+	<link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css')}}">
+
+	<link
+	rel="stylesheet" href="{{ asset('assets/css/styles.css')}}">
+	<!-- Fichiers Javascript -->
+	<script src="{{ asset('assets/js/bootstrap.bundle.min.js')}} " defer></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous" defer></script>
+	{% block javascripts%}
+
+	<script src="{{ asset('assets/js/charts.js') }}"></script>
+	<script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+	{% endblock%}
+	<script src="{{ asset('assets/js/scripts.js')}} " defer></script>
+</head>
+<body id="main">
+	<div class="container-fluid">
+		{% include "_partials/_driver_nav.html.twig" %}
+		<!-- Side Nav Layout -->
+		<div id="layoutSidenav">
+			{% include "_partials/_manager_sidenav.html.twig" %}
+			{% block body %}{% endblock %}
+		</div>
+		{% include "_partials/_footer.html.twig" %}
+	</div>
+</body></html>

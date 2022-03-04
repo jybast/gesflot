@@ -1,47 +1,49 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello MainController!
+{% block title %}
+	{% trans %}Welcome to{% endtrans %}
 {% endblock %}
 
 {% block body %}
-	<div class="main-content">
-		<div class="container">
-			<div class="row justify-content-center">
-				<div class="col-md-10">
 
-					<div class="row justify-content-center">
-						{% for message in app.flashes('message') %}
-							<div class="alert alert-info" role="alert">{{ message }}</div>
-						{% endfor %}
+	<div class="container bg-ligth">
+		<div class="row p-4 mt-5">
+			<div class="col-12 col-md-10">
+
+				<div class="row text-center">
+
+					{% for message in app.flashes('message') %}
+						<div class="alert alert-info" role="alert">{{ message }}</div>
+					{% endfor %}
+				</div>
+
+				<div class="row gy-3">
+					<div class="col-12 col-md-6 me-auto">
+						<h2 class="text-center">Titre</h1>
+						<a href="{{ path('manager_dashboard')}}">
+							<figure class="vignette">
+								<img src="{{ asset('assets/img/gestion02.jpg')}}" alt="Manager">
+								<figcaption class="overlay">
+									<p>{% trans %}Manage the car fleet{% endtrans %}</p>
+								</figcaption>
+							</figure>
+						</a>
 					</div>
-
-					<div class="flex-container">
-						<div class="col-md-6 cadre-center">
-							<h1>Titre</h1>
-							<a href="">
-								<figure class="vignette ">
-									<img src="{{ asset('assets/img/gestion02.jpg')}}" alt="Manager" srcset="">
-									<figcaption class="overlay">
-										<p>Manage the car fleet</p>
-									</figcaption>
-								</figure>
-							</a>
-						</div>
-						<div class="col-md-6">
-							<h1>Titre</h1>
-							<a href="">
-								<figure class="vignette ">
-									<img src="{{ asset('assets/img/conduire200.jpg')}}" alt="Driver" srcset="">
-									<figcaption class="overlay">
-										<p>Drive a car</p>
-									</figcaption>
-								</figure>
-							</a>
-						</div>
+					<div class="col-12 col-md-6 me-auto">
+						<h2 class="text-center">Titre</h1>
+						<a href="{{ path('driver_dashboard')}}">
+							<figure class="vignette">
+								<img src="{{ asset('assets/img/conduire200.jpg')}}" alt="Driver">
+								<figcaption class="overlay">
+									<p>{% trans %}Drive a car{% endtrans %}</p>
+								</figcaption>
+							</figure>
+						</a>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+
 
 {% endblock %}

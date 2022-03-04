@@ -1,0 +1,21 @@
+{% extends 'base_driver.html.twig' %}
+
+{% block title %}
+	{% trans %}New trip{% endtrans %}
+{% endblock %}
+
+{% block body %}
+	<div id="layoutSidenav_content">
+
+		<main>
+			<div class="container-fluid px-4">
+
+				<h1>{% trans %}New trip{% endtrans %}</h1>
+
+				{{ include('logbook/_form.html.twig') }}
+
+				<a href="{{ path('logbook_index') }}">{% trans %}back to list{% endtrans %}</a>
+			</div>
+		</main>
+	</div>
+{% endblock %}

@@ -2,21 +2,42 @@
   .cadre-center{
     text-align: center;
   }
+
+  @media screen and (max-width: 467px){
   .vignette {
-    width: 200px;
-    height: 200px;
+    width: 150 px;
+    height: 150 px;
     border: 1px solid lightgray;
     padding: 3px;
     box-shadow: 2px 2px 2px lightgray;
     position: relative;
-    
+    }
+
+    .vignette img{
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+      }
   }
 
-  .vignette img{
+  @media screen and (min-width: 468px){
+  .vignette {
+    width: 300 px;
+    height: 300 px;
+    border: 1px solid lightgray;
+    padding: 3px;
+    box-shadow: 2px 2px 2px lightgray;
+    position: relative;
+    }
+
+    .vignette img{
     width: 100%;
     height: 100%;
     object-fit: cover;
+    }
   }
+
+ 
   
   .vignette .overlay{
   position: absolute;

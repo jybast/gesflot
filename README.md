@@ -25,14 +25,14 @@ Javascript
 * Créer la base de données
 * Préparer mise en place traduction multilingue
 
-## TO DO
 * Préparer backend Administrateur : composer require easycorp/easyadmin-bundle
 * intégrer fontAwesome : <script src="https://kit.fontawesome.com/88d4e45bc1.js" crossorigin="anonymous"></script>
 * Préparer le système d'authentification et d'enregistrement
-
+## TO DO
 * -> symfony console translation:extract --force --prefix="gf_" fr
 * Un controller (Add, delete, edit, show) et upload de fichiers.
-
+* Cas d'utilisation "conducteur"
+* Cas d'utilisation "Gestionnaire"
 * page contact
 * - formulaire contact
   - envoi de mail

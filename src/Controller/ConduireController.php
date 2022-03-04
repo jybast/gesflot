@@ -1,0 +1,84 @@
+<?php
+
+namespace App\Controller;
+
+use App\Entity\Conduire;
+use App\Form\ConduireType;
+use App\Repository\ConduireRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+
+#[Route('/logbook', name: 'logbook_')]
+class ConduireController extends AbstractController
+{
+    #[Route('/', name: 'index', methods: ['GET'])]
+    public function index(ConduireRepository $conduireRepository): Response
+    {
+        $value = 2;
+        $result = $conduireRepository->findLogbooksByVehicle($value);
+
+        return $this->render('logbook/index.html.twig', [
+            'conduires' => $result,
+        ]);
+    }
+
+    #[Route('/new', name: 'new', methods: ['GET', 'POST'])]
+    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $conduire = new Conduire();
+        $form = $this->createForm(ConduireType::class, $conduire);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($conduire);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('logbook_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('logbook/new.html.twig', [
+            'conduire' => $conduire,
+            'form' => $form,
+        ]);
+    }
+
+    #[Route('/{id}', name: 'show', methods: ['GET'])]
+    public function show(Conduire $conduire): Response
+    {
+        return $this->render('logbook/show.html.twig', [
+            'conduire' => $conduire,
+        ]);
+    }
+
+    #[Route('/{id}/edit', name: 'edit', methods: ['GET', 'POST'])]
+    public function edit(Request $request, Conduire $conduire, EntityManagerInterface $entityManager): Response
+    {
+        $form = $this->createForm(ConduireType::class, $conduire);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->flush();
+
+            return $this->redirectToRoute('logbook_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('logbook/edit.html.twig', [
+            'conduire' => $conduire,
+            'form' => $form,
+        ]);
+    }
+
+    #[Route('/{id}', name: 'delete', methods: ['POST'])]
+    public function delete(Request $request, Conduire $conduire, EntityManagerInterface $entityManager): Response
+    {
+        if ($this->isCsrfTokenValid('delete' . $conduire->getId(), $request->request->get('_token'))) {
+            $entityManager->remove($conduire);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('logbook_index', [], Response::HTTP_SEE_OTHER);
+    }
+}

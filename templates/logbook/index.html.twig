@@ -1,0 +1,55 @@
+{% extends 'base_driver.html.twig' %}
+
+{% block title %}
+	{% trans %}Logbooks{% endtrans %}
+{% endblock %}
+
+{% block body %}
+	
+		<main>
+			<div class="container-fluid px-4">
+				<h1>{% trans %}Logbooks details{% endtrans %}</h1>
+
+				<table class="table">
+					<thead>
+						<tr>
+							<th>Id</th>
+							<th>{% trans %}When{% endtrans %}</th>
+							<th>{% trans %}From{% endtrans %}</th>
+							<th>{% trans %}To{% endtrans %}</th>
+							<th>{% trans %}Distance{% endtrans %}</th>
+							<th>{% trans %}Odometer{% endtrans %}</th>
+							<th>{% trans %}driver{% endtrans %}</th>
+							<th>{% trans %}Vehicle{% endtrans %}</th>
+							<th>{% trans %}Actions{% endtrans %}</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for conduire in conduires %}
+							<tr>
+								<td>{{ conduire.id }}</td>
+								<td>{{ conduire.realiserAt ? conduire.realiserAt|date('d-m-Y') : '' }}</td>
+								<td>{{ conduire.partir }}</td>
+								<td>{{ conduire.arriver }}</td>
+								<td>{{ conduire.distance }}</td>
+								<td>{{ conduire.compteur }}</td>
+								<td>{{ conduire.conducteur }}</td>
+								<td>{{ conduire.vehicule }}</td>
+								<td>
+									<a href="{{ path('logbook_show', {'id': conduire.id}) }}">{% trans %}show{% endtrans %}</a>
+									<a href="{{ path('logbook_edit', {'id': conduire.id}) }}">{% trans %}edit{% endtrans %}</a>
+								</td>
+							</tr>
+						{% else %}
+							<tr>
+								<td colspan="7">{% trans %}no records found{% endtrans %}</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+
+				<a href="{{ path('logbook_new') }}">{% trans %}Create new{% endtrans %}</a>
+			</div>
+		</main>
+
+{% endblock %}
