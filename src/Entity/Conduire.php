@@ -27,6 +27,12 @@ class Conduire
     #[ORM\Column(type: 'integer', nullable: true)]
     private $distance;
 
+    #[ORM\Column(type: 'integer')]
+    private $compteur;
+
+    #[ORM\Column(type: 'text', nullable: true)]
+    private $commentaire;
+
     #[ORM\ManyToOne(targetEntity: Vehicule::class, inversedBy: 'trajets')]
     #[ORM\JoinColumn(nullable: false)]
     private $vehicule;
@@ -35,15 +41,16 @@ class Conduire
     #[ORM\JoinColumn(nullable: false)]
     private $conducteur;
 
-    #[ORM\Column(type: 'integer')]
-    private $compteur;
-
     #[ORM\OneToMany(mappedBy: 'trajet', targetEntity: Ravitailler::class)]
     private $carburant;
+
+    #[ORM\OneToMany(mappedBy: 'trajet', targetEntity: Charge::class)]
+    private $charges;
 
     public function __construct()
     {
         $this->carburant = new ArrayCollection();
+        $this->charges = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -159,6 +166,48 @@ class Conduire
             // set the owning side to null (unless already changed)
             if ($carburant->getTrajet() === $this) {
                 $carburant->setTrajet(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getCommentaire(): ?string
+    {
+        return $this->commentaire;
+    }
+
+    public function setCommentaire(?string $commentaire): self
+    {
+        $this->commentaire = $commentaire;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Charge[]
+     */
+    public function getCharges(): Collection
+    {
+        return $this->charges;
+    }
+
+    public function addCharge(Charge $charge): self
+    {
+        if (!$this->charges->contains($charge)) {
+            $this->charges[] = $charge;
+            $charge->setTrajet($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCharge(Charge $charge): self
+    {
+        if ($this->charges->removeElement($charge)) {
+            // set the owning side to null (unless already changed)
+            if ($charge->getTrajet() === $this) {
+                $charge->setTrajet(null);
             }
         }
 

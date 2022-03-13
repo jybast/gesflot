@@ -32,6 +32,9 @@ class Charge
     #[ORM\Column(type: 'date', nullable: true)]
     private $prochain_at;
 
+    #[ORM\ManyToOne(targetEntity: Conduire::class, inversedBy: 'charges')]
+    private $trajet;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -105,6 +108,18 @@ class Charge
     public function setProchainAt(?\DateTimeInterface $prochain_at): self
     {
         $this->prochain_at = $prochain_at;
+
+        return $this;
+    }
+
+    public function getTrajet(): ?Conduire
+    {
+        return $this->trajet;
+    }
+
+    public function setTrajet(?Conduire $trajet): self
+    {
+        $this->trajet = $trajet;
 
         return $this;
     }

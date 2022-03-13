@@ -11,8 +11,8 @@
 				<div class="col-md-10">
 					<div class="row justify-content-center">
 						<div class="col-md-6">
-							<div class="form-wrapper">
-								<form method="post">
+							<div class="form-wrapper mt-5 me-3">
+								<form method="post" class="me-4">
 									{% if error %}
 										<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
 									{% endif %}
@@ -23,7 +23,7 @@
 									<label for="inputPassword">{% trans %}Password{% endtrans %}</label>
 									<input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
 									<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-									<button class="btn btn-lg btn-primary" type="submit">
+									<button class="btn btn-lg btn-info mt-4" type="submit">
 										{% trans %}Sign in{% endtrans %}
 									</button>
 									<div class="text-center m-t-5 m-b-20">
@@ -36,7 +36,7 @@
 								</form>
 							</div>
 						</div>
-						<div class="col-md-5 offset-md-1 m-t-10">
+						<div class="col-md-5 offset-md-1 m-t-10 ms-5">
 							{% if app.user %}
 								<div class="mb-3">
 									{% trans %}You are logged in as
@@ -44,7 +44,7 @@
 									<a href="{{ path('app_logout') }}">{% trans %}Logout{% endtrans %}</a>
 								</div>
 							{% endif %}
-							<h3 class="heading mb-4">{% trans %}
+							<h3 class="heading mt-4 mb-4">{% trans %}
 								It's time to check in !{% endtrans %}</h3>
 							<p>{% trans %}Please use the sign in form.{% endtrans %}</p>
 							<div class="register-link">

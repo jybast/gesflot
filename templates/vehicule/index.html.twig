@@ -6,7 +6,11 @@
 
 {% block body %}
 	<h1>{% trans %}Vehicule index{% endtrans %}</h1>
-
+{% for vehicule in vehicules %}
+{% for trajet in vehicule.trajets%}
+{{ trajet.partir}}
+{% endfor %}
+{% endfor %}
 	<table class="table">
 		<thead>
 			<tr>

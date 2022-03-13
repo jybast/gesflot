@@ -1,3 +1,4 @@
+{{ dump()}}
 <div id="layoutSidenav_nav">
 	<nav class="sb-sidenav accordion sb-sidenav-ligth" id="sidenavAccordion">
 		<div class="sb-sidenav-menu">
@@ -18,7 +19,7 @@
 					<div class="sb-nav-link-icon">
 						<i class="fas fa-columns"></i>
 					</div>
-					{% trans %}Driving{% endtrans %}
+					{% trans %}Logbooks{% endtrans %}
 					<div class="sb-sidenav-collapse-arrow">
 						<i class="fas fa-angle-down"></i>
 					</div>
@@ -26,7 +27,12 @@
 
 				<div class="collapse" id="driverInterface" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
 					<nav class="sb-sidenav-menu-nested nav">
-						<a class="nav-link" href="{{ path('logbook_index')}}">{% trans %}Record a trip{% endtrans %}</a>
+						{% for vehicule in vehicules %}
+							<a class="nav-link" href="{{ path('logbook_show', {vehicule : vehicule.id}) }}">
+							{% trans %}Show logbook {% endtrans %} {{ vehicule.d1marque}}</a>
+						{% endfor %}
+						
+
 						<a class="nav-link" href="layout-sidenav-light.html">{% trans %}Record an odometer{% endtrans %}</a>
 						<a class="nav-link" href="layout-sidenav-light.html">{% trans %}Record additional fuel{% endtrans %}</a>
 					</nav>

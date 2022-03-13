@@ -2,7 +2,11 @@
 
 namespace App\Entity;
 
-use App\Entity\Images;
+use App\Entity\Image;
+
+use App\Entity\Conduire;
+use App\Entity\Assurance;
+use App\Entity\Entretenir;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\VehiculeRepository;
 use Doctrine\Common\Collections\Collection;

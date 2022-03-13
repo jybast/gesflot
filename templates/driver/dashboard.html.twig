@@ -7,65 +7,176 @@
 	<!-- Content -->
 
 
-		<main>
-			<div class="container-fluid px-4">
-				<h1 class="mt-4">Charts</h1>
-				<ol class="breadcrumb mb-4">
-					<li class="breadcrumb-item">
-						<a href="index.html">Dashboard</a>
-					</li>
-					<li class="breadcrumb-item active">Charts</li>
-				</ol>
-				<div class="card mb-4">
-					<div class="card-body">
-						Chart.js is a third party plugin that is used to generate the charts in this template. The charts below have been customized - for further customization options, please visit the official
-						<a target="_blank" href="https://www.chartjs.org/docs/latest/">Chart.js documentation</a>
-						.
+	<main>
+		<div class="container-fluid px-4">
+			<h1 class="mt-4">{% trans %}Driver dashboard{% endtrans %}</h1>
+			<ol class="breadcrumb mb-4">
+				<li class="breadcrumb-item">
+					<a href="#">{% trans %}Driver dashboard{% endtrans %}</a>
+				</li>
+				<li class="breadcrumb-item active">Charts</li>
+
+			</ol>
+			{# ---------------- Affiche les véhicules ----------------- #}
+			<div class="card mb-4">
+				<div class="card-header">
+					<p>{% trans %}Select your vehicle{% endtrans %}</p>
+				</div>
+				<div class="card-body">
+					<table class="table">
+						<tbody>
+
+							<tr>
+								<th>Immatriculation</th>
+								<th>Marque</th>
+								<th>Action</th>
+							</tr>
+
+							{% for vehicule in vehicules %}
+								<tr>
+									<td>{{ vehicule.immatriculation }}</td>
+									<td>{{ vehicule.d1Marque }}</td>
+									<td>
+										<a href="{{ path('vehicule_service', {'id': vehicule.id}) }}">{% trans %}Select{% endtrans %}</a>
+									</td>
+								</tr>
+
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+			</div>
+			{# ---------- Affiche les Trajets effectués par le driver  ----------------- #}
+			<div class="row">
+				<p>{% trans %}Your personnal data{% endtrans %}</p>
+				<div class="row">
+					{% for trajet in trajets %}
+						<p>De
+							{{ trajet.partir}}
+							à
+							{{ trajet.arriver }}
+							le
+							{{trajet.realiserAt | date('d/m/Y') }}
+							Distance de
+							{{ trajet.distance}}
+							Km avec le véhicule
+							{{trajet.vehicule}}</p>
+					{% else %}
+						<p>
+							aucun trajet
+						</p>
+
+					{% endfor %}
+				</div>
+
+				{# ---------- Affiche les graphiques ---------------- #}
+				<div class="col-12 col-md-4 col-lg-3">
+					<div class="card mb-4">
+						<div class="card-header">
+							<i class="fas fa-chart-bar me-1"></i>
+							{% trans %}
+							kilometers traveled by year{% endtrans %}
+						</div>
+						<div class="card-body">
+							<canvas id="barChart" width="100%" height="50"></canvas>
+						</div>
+						<div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
 					</div>
 				</div>
-				<div class="row">
-					<div class="col-12 col-md-4 col-lg-3">
-						<div class="card mb-4">
-							<div class="card-header">
-								<i class="fas fa-chart-line me-1"></i>
-								Line Chart Example
-							</div>
-							<div class="card-body">
-								<canvas id="lineChart" width="100%" height="30"></canvas>
-							</div>
-							<div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
-						</div>
-					</div>
 
-					<div class="col-12 col-md-4 col-lg-3">
-						<div class="card mb-4">
-							<div class="card-header">
-								<i class="fas fa-chart-bar me-1"></i>
-								Bar Chart Example
-							</div>
-							<div class="card-body">
-								<canvas id="barChart" width="50" height="25"></canvas>
-							</div>
-							<div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+				<div class="col-12 col-md-4 col-lg-3">
+					<div class="card mb-4 h-25">
+						<div class="card-header">
+							<i class="fas fa-chart-line me-1"></i>
+							Line Chart Example
 						</div>
+						<div class="card-body">
+							<canvas id="lineChart" width="100%" height="20"></canvas>
+						</div>
+						<div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
 					</div>
-					<div class="col-12 col-md-4 col-lg-3">
-						<div class="card mb-4">
-							<div class="card-header">
-								<i class="fas fa-chart-pie me-1"></i>
-								Pie Chart Example
-							</div>
-							<div class="card-body">
-								<canvas id="pieChart" width="50" height="25"></canvas>
-							</div>
-							<div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+				</div>
+
+				<div class="col-12 col-md-4 col-lg-3">
+					<div class="card mb-4">
+						<div class="card-header">
+							<i class="fas fa-chart-pie me-1"></i>
+							Utilisation des véhicules
 						</div>
+						<div class="card-body">
+							<canvas id="pieChart" width="100%" height="20"></canvas>
+						</div>
+						<div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
 					</div>
 				</div>
 			</div>
-		</main>
+		</div>
+	</main>
 
+{% endblock %}
 
+{% block javascripts%}
+	<script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js" defer></script>
 
-	<!-- fin de block -->
+	<script>
+	
+	window.onload = () => {
+
+		const barCtx = document.getElementById('barChart').getContext('2d');
+		const pieCtx = document.getElementById('pieChart').getContext('2d');
+
+		const barChart = new Chart(barCtx, {
+			type: 'bar',
+			data: {
+				labels: {{ years|raw}},
+				datasets: [{
+					label: 'Km par année',
+					data: {{ km|raw }},
+					backgroundColor: [
+						'rgba(255, 99, 132, 0.2)',
+						'rgba(54, 162, 235, 0.2)',
+						'rgba(255, 206, 86, 0.2)',
+						'rgba(75, 192, 192, 0.2)',
+						'rgba(153, 102, 255, 0.2)',
+						'rgba(255, 159, 64, 0.2)'
+					],
+					borderWidth: 1
+				}]
+			},
+			options: {
+				scales: {
+					y: {
+						beginAtZero: true
+					}
+				}
+			}
+		});
+
+		
+		
+		const pieChart = new Chart(pieCtx, { 
+			type: 'pie',
+			data: {
+				labels: {{ marque|raw}},
+				datasets: [{
+					label: 'Km par année',
+					data: {{ nbr|raw}},
+					backgroundColor: [
+						'rgba(255, 99, 132, 0.2)',
+						'rgba(54, 162, 235, 0.2)',
+						'rgba(255, 206, 86, 0.2)',
+						'rgba(75, 192, 192, 0.2)',
+						'rgba(153, 102, 255, 0.2)',
+						'rgba(255, 159, 64, 0.2)'
+					],
+					borderWidth: 1
+				}]
+			},
+
+		});
+    
+	}
+
+</script>
+
 {% endblock %}

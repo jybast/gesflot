@@ -21,6 +21,12 @@ class TypeEntretien
     #[ORM\OneToMany(mappedBy: 'type', targetEntity: Entretien::class)]
     private $entretiens;
 
+    #[ORM\Column(type: 'string', length: 20)]
+    private $code;
+
+    #[ORM\Column(type: 'string', length: 10, nullable: true)]
+    private $couleur;
+
     public function __construct()
     {
         $this->entretiens = new ArrayCollection();
@@ -69,6 +75,30 @@ class TypeEntretien
                 $entretien->setType(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCode(): ?string
+    {
+        return $this->code;
+    }
+
+    public function setCode(string $code): self
+    {
+        $this->code = $code;
+
+        return $this;
+    }
+
+    public function getCouleur(): ?string
+    {
+        return $this->couleur;
+    }
+
+    public function setCouleur(?string $couleur): self
+    {
+        $this->couleur = $couleur;
 
         return $this;
     }

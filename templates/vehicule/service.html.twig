@@ -1,0 +1,21 @@
+{% extends 'base_driver.html.twig' %}
+
+{% block title %}
+	{% trans %}Vehicle{% endtrans %}
+
+{% endblock %}
+
+{% block body %}
+	{{ dump()}}
+	<h1>{{vehicule.D1marque}}
+		{{ vehicule.immatriculation }}</h1>
+
+	<h3>Mes trajets</h3>
+	{% for trajet in app.user.trajets %}
+		{{ trajet.id}} {{ trajet.partir}} {{ trajet.arriver}}
+	{% else %}
+		<p>Aucun trajet</p>
+
+	{% endfor %}
+
+{% endblock %}

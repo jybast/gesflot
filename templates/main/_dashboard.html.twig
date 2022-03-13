@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	{% trans %}Dashboard{% endtrans %}
+{% endblock %}
+
+{% block body %}
+
+
+	<div class="main-content">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="flex-container">
+					<h2>Dashboard</h2>
+				</div>
+			</div>
+			<div class="row">
+				<p>Vous avez
+					{{ vehicules | length }}
+					véhicules</p>
+				<p>Dont
+					{{ go | length }}
+					au Diesel et
+					{{ es | length }}
+					Essence</p>
+			</div>
+
+
+			<div class="row">
+				{% for vehicule in vehicules %}
+					<p>Le véhicule
+						{{ vehicule.d1marque}}
+						immatriculé
+						{{ vehicule.immatriculation}}
+						a son contrôle technique le
+						{{ vehicule.x1visiteAt | date('d/m/Y')}}</p>
+
+
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+</div>{% endblock %}

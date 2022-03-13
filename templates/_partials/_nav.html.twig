@@ -7,49 +7,51 @@
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 				<li class="nav-item">
-					<a class="nav-link active" aria-current="page" href="{{ path('app_home')}} ">Home</a>
+					<a class="nav-link active" aria-current="page" href="{{ path('app_home')}} ">{% trans %}Home{% endtrans %}</a>
 				</li>
+<!--
 				<li class="nav-item dropdown">
 					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-						Fleet
+						{% trans %}Actions{% endtrans %}
 					</a>
 					<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
 						<li>
-							<a class="dropdown-item" href="#">Dashboard</a>
+							<a class="dropdown-item" href="#">{% trans %}Action{% endtrans %}</a>
 						</li>
 						<li>
-							<a class="dropdown-item" href="#">Results</a>
+							<a class="dropdown-item" href="#">{% trans %}Action{% endtrans %}</a>
 						</li>
 						<li><hr class="dropdown-divider"></li>
 						<li>
-							<a class="dropdown-item" href="#">Team</a>
+							<a class="dropdown-item" href="#">{% trans %}Action{% endtrans %}</a>
 						</li>
 					</ul>
 				</li>
+-->
 				<li class="nav-item dropdown">
-					<a class="nav-link dropdown-toggle" href="{{ path('app_about')}} " id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-						About Us
+					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+						{% trans %}About Us{% endtrans %}
 					</a>
 					<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
 						<li>
-							<a class="dropdown-item" href="#">Actions</a>
+							<a class="dropdown-item" href="#">{% trans %}Actions{% endtrans %}</a>
 						</li>
 						<li>
-							<a class="dropdown-item" href="#">Results</a>
+							<a class="dropdown-item" href="#">{% trans %}Results{% endtrans %}</a>
 						</li>
 						<li><hr class="dropdown-divider"></li>
 						<li>
-							<a class="dropdown-item" href="#">Team</a>
+							<a class="dropdown-item" href="{{ path('app_about')}}">{% trans %}Team{% endtrans %}</a>
 						</li>
 					</ul>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="{{path('app_contact')}} ">Contact Us</a>
+					<a class="nav-link" href="{{path('app_contact')}} ">{% trans %}Contact Us{% endtrans %}</a>
 				</li>
 			</ul>
 			<form class="d-flex">
 				<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-				<button class="btn btn-outline-success" type="submit">Search</button>
+				<button class="btn btn-outline-success" type="submit">{% trans %}Search{% endtrans %}</button>
 			</form>
 
 		</div>

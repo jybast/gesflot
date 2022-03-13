@@ -21,11 +21,14 @@ class TypeCarburant
     #[ORM\Column(type: 'string', length: 20)]
     private $titre;
 
-    #[ORM\Column(type: 'string', length: 20)]
+    #[ORM\Column(type: 'string', length: 30)]
     private $nom;
 
     #[ORM\OneToMany(mappedBy: 'typeCarburant', targetEntity: Ravitailler::class)]
     private $ravitailler;
+
+    #[ORM\Column(type: 'string', length: 10, nullable: true)]
+    private $couleur;
 
     public function __construct()
     {
@@ -99,6 +102,18 @@ class TypeCarburant
                 $ravitailler->setTypeCarburant(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCouleur(): ?string
+    {
+        return $this->couleur;
+    }
+
+    public function setCouleur(?string $couleur): self
+    {
+        $this->couleur = $couleur;
 
         return $this;
     }

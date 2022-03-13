@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+
 use App\Entity\Vehicule;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -25,19 +26,19 @@ class VehiculeRepository extends ServiceEntityRepository
     // /**
     //  * @return Vehicule[] Returns an array of Vehicule objects
     //  */
-    /*
-    public function findByExampleField($value)
+
+    public function findByEnergie($value)
     {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.exampleField = :val')
+        return $this->createQueryBuilder('v')
+
+
+            ->andWhere('v.p3_energie = :val')
             ->setParameter('val', $value)
-            ->orderBy('u.id', 'ASC')
-            ->setMaxResults(10)
+
             ->getQuery()
-            ->getResult()
-        ;
+            ->getResult();
     }
-    */
+
 
     /*
     public function findOneBySomeField($value): ?Vehicule

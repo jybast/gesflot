@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Form\ContactType;
+use App\Repository\VehiculeRepository;
 use App\Service\SendMailService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,9 +17,7 @@ class MainController extends AbstractController
     #[Route('/home', name: 'app_home')]
     public function home(TranslatorInterface $translator): Response
     {
-        return $this->render('main/home.html.twig', [
-            'controller_name' => 'MainController',
-        ]);
+        return $this->render('main/home.html.twig', []);
     }
 
     #[Route('/contact', name: 'app_contact')]
@@ -75,4 +74,26 @@ class MainController extends AbstractController
             'controller_name' => 'MainController',
         ]);
     }
+    /*
+    #[Route('/dashboard', name: 'app_dashboard')]
+    public function dashboard(TranslatorInterface $translator, VehiculeRepository $vehRepo): Response
+    {
+        // nombre de véhicules
+        $vehicules = $vehRepo->findAll();
+        $go = $vehRepo->findByEnergie('GO');
+        $es = $vehRepo->findByEnergie('ES');
+        // age des vehicules
+        // kilomètres parcourus 
+        // carburant 
+        // échéances controles techniques, assurances
+
+
+        return $this->render('main/dashboard.html.twig', [
+            'vehicules' => $vehicules,
+            'go' => $go,
+            'es' => $es,
+
+        ]);
+    }
+    */
 }

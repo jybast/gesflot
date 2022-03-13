@@ -2,9 +2,12 @@
 
 namespace App\Repository;
 
+use App\Entity\Conduire;
 use App\Entity\User;
+use App\Entity\Vehicule;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use phpDocumentor\Reflection\Types\Integer;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
@@ -64,4 +67,12 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         ;
     }
     */
+
+    public function getTrajetsByDriver()
+    {
+        return $this->createQueryBuilder('u')
+            ->leftJoin('u.trajets', 'c')
+            ->getQuery()
+            ->getResult();
+    }
 }
